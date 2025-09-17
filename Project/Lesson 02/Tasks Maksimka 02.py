@@ -19,7 +19,9 @@ def run_length_encoding(inp_data):
 
 
 def operations(in1, in2):
-    in1, in2 = str(i + ' ' for i in in1)[0:-2].lower(),  str(i + ' ' for i in in1)[0:-2].lower()
+    in1, in2 = set(in1.split()), set(in2.split())
+    return list(in1 & in2), list(in1 - in2), list(in1 ^ in2)
+
 
 
 
@@ -33,3 +35,6 @@ if __name__ == '__main__':
     # task 2
     a = run_length_encoding('aaabb')
     assert ('a', 3) in a and ('b', 2) in a
+
+    # task 3
+    assert operations("a b c", "b d") == (['b'], ['a', 'c'], ['a', 'd', 'c'])

@@ -85,7 +85,13 @@ def permetuation_possibility(a: list):
 # task 8
 
 def rotate_90(mat: list[list]):
-    return 0
+    ans_mat = [[] for i in range(len(mat))]
+    for i in range(1, len(mat)+1):
+        for j in range(len(mat[i*-1])):
+            ans_mat[j].append(mat[i*-1][j])
+    return ans_mat
+
+    # return tuple(zip(*mat[::-1]))   # stackoverflow variant
 
 
 if __name__ == '__main__':
@@ -114,4 +120,8 @@ if __name__ == '__main__':
     # task 7
     assert permetuation_possibility([1, 1, 2, 2, 3]) == True
     assert permetuation_possibility([1, 1, 1, 2]) == False
+
+    # task 8
+    assert rotate_90([[1, 2], [3, 4]]) == [[3, 1], [4, 2]]
+    assert rotate_90([[3, 1, 5], [7, 0, 9], [2, 8, 6]]) == [[2, 7, 3], [8, 0, 1], [6, 9, 5]]
 

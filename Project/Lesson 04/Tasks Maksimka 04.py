@@ -28,6 +28,22 @@ def safe_div(a: float, b: float) -> float | None:
     return None if b == 0 else a/b
 
 
+# task 6
+
+def stats(vals: list[float], scale: float = 1.0, round_to: int | None = None) -> tuple[float, float] | str:
+    return 'ValueError' if len(vals) == 0 else (round(sum(vals)*scale, round_to),
+                                                round((sum(vals)/len(vals))*scale, round_to))
+
+
+# task 7
+
+def calc(a: float, b: float, op: str) -> float | str:
+    return 'ZeroDivisionError' if op == '/' and b == 0 else lambda a, b: a + b if op == '+' else \
+                                                            lambda a, b: a - b if op == '-' else \
+                                                            lambda a, b: a * b if op == '*' else \
+                                                            lambda a, b: a / b if op == '/' else None
+
+
 if __name__ == '__name__':
 
     # task 1
@@ -44,3 +60,10 @@ if __name__ == '__name__':
 
     # task 5
     assert [safe_div(1, 2), safe_div(9, 0)] == [0.5, None]
+
+    # task 6
+    assert stats([1, 2, 3], 2) == (12.0, 4.0)
+    assert stats([1.2345, 2.3456], 1, 2) == (3.58, 1.79)
+
+    # task 7
+    assert calc(6, 9, '+') == 15

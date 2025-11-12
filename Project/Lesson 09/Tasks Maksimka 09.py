@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from random import randint
 from tasks08 import Car, Bike, Bus, trip_report  # for task 1
 
 # task 1
@@ -85,6 +86,55 @@ class BankAccount:
     def __str__(self):
         return f'Счёт {self.owner}: {self.balance}{self.currency}'
 
+
+# task 4
+
+
+class SuperBankAccount(BankAccount):
+    def __init__(self, owner: str, currency: str, balance: float = 0, acc_nums: list | tuple = ()):
+        super(SuperBankAccount, self).__init__(owner, currency, balance)
+        while True:
+            self.account_number = randint(10**10, 10**11-1)
+            if self.account_number not in acc_nums:
+                break
+        self.cls = self.__class__
+
+    def __add__(self, other: float | BankAccount | __class__) -> None:
+        if other is BankAccount | SuperBankAccount and self.currency == other.currency:
+            self.balance += other.balance
+        elif other is BankAccount | SuperBankAccount and not(self.currency == other.currency):
+            raise ValueError('Not the same currency')
+        else:
+            self.balance += other
+
+    def __iadd__(self, other: float | BankAccount | __class__) -> None:
+        if other is BankAccount | SuperBankAccount and self.currency == other.currency:
+            self.balance += other.balance
+        elif other is BankAccount | SuperBankAccount and not(self.currency == other.currency):
+            raise ValueError('Not the same currency')
+        else:
+            self.balance += other
+
+    def __sub__(self, other: float | BankAccount | __class__) -> None:
+        if other is BankAccount | SuperBankAccount and self.currency == other.currency:
+            self.balance -= other.balance
+        elif other is BankAccount | SuperBankAccount and not(self.currency == other.currency):
+            raise ValueError('Not the same currency')
+        else:
+            self.balance -= other
+
+    def __isub__(self, other: float | BankAccount | __class__) -> None:
+        if other is BankAccount | SuperBankAccount and self.currency == other.currency:
+            self.balance -= other.balance
+        elif other is BankAccount | SuperBankAccount and not(self.currency == other.currency):
+            raise ValueError('Not the same currency')
+        else:
+            self.balance -= other
+
+    def transfer_to(self, other: BankAccount | __class__, amount: float):
+        if self.currency == other.currency and self.balance >= amount:
+            self.balance -= amount
+            other.balance += amount
 
 
 if __name__ == '__main__':

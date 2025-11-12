@@ -57,3 +57,37 @@ class Playlist:
 
     def __iter__(self) -> list:
         return self.tracks
+
+
+# task 3
+
+
+class BankAccount:
+    def __init__(self, owner: str, currency: str, balance: float = 0):
+        self.owner, self.balance = owner, balance
+        self.currency = currency
+
+    def __add__(self, other: float) -> None:
+        self.balance += other
+
+    def __iadd__(self, other: float) -> None:
+        self.balance += other
+
+    def __sub__(self, other: float) -> None:
+        self.balance -= other
+
+    def __isub__(self, other: float) -> None:
+        self.balance -= other
+
+    def __eq__(self, other):
+        return self.balance == other.amount and self.currency == other.currency
+
+    def __str__(self):
+        return f'Счёт {self.owner}: {self.balance}{self.currency}'
+
+
+
+if __name__ == '__main__':
+    # task 1
+    print(f'Task 1\n{"-"*40}')
+    trip_report([Car(20, 78), Bike(), Bus(0.3), ElectricCar(2500, 400, 40)], 100)

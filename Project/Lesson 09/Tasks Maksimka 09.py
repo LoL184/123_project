@@ -49,9 +49,11 @@ class Playlist:
 
     def __add__(self, other: str):
         self.tracks.append(other)
+        return other
 
     def __iadd__(self, other: str):  # same as __add__ but works with +=
         self.tracks.append(other)
+        return other
 
     def __eq__(self, other) -> bool:
         return self.tracks == other.tracks
@@ -68,17 +70,21 @@ class BankAccount:
         self.owner, self.balance = owner, balance
         self.currency = currency
 
-    def __add__(self, other: float) -> None:
+    def __add__(self, other: float) -> float:
         self.balance += other
+        return self.balance
 
-    def __iadd__(self, other: float) -> None:
+    def __iadd__(self, other: float) -> float:
         self.balance += other
+        return self.balance
 
-    def __sub__(self, other: float) -> None:
+    def __sub__(self, other: float) -> float:
         self.balance -= other
+        return self.balance
 
-    def __isub__(self, other: float) -> None:
+    def __isub__(self, other: float) -> float:
         self.balance -= other
+        return self.balance
 
     def __eq__(self, other):
         return self.balance == other.amount and self.currency == other.currency
